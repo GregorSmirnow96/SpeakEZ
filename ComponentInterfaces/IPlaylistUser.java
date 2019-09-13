@@ -2,9 +2,8 @@ package com.example.speakez.ComponentInterfaces;
 
 /**
  * @summary
- *  This interface acts as a partial adapter from IClientBluetoothHub / IHostBluetoothHub to
- *  IPlaylist. Using this semi-adapter allows the BluetoothHub interfaces to be conceptualized as
- *  direct access to the playlist.
+ *  This interface defines the necessary behaviour of any entity that wants to interact with the the
+ *  playlist.
  */
 public interface IPlaylistUser
 {
