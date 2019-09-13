@@ -2,7 +2,7 @@ package com.example.speakez.ComponentInterfaces;
 
 /**
  * @summary
- *  This interface defines the necessary behaviour of any entity that wants to interact with the the
+ *  This interface defines the necessary behaviour of any entity that wants to interact with the
  *  playlist.
  */
 public interface IPlaylistUser
