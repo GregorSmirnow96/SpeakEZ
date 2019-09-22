@@ -6,5 +6,11 @@ package com.example.speakez.ComponentInterfaces;
  */
 public interface IHost extends IPlaylistUser
 {
-    // TODO: Add host behavior.
+    /**
+     * @summary
+     *  This method adds a client's request to a queue of requests.
+     * @param request
+     *  The client request being enqueued.
+     */
+    void enqueueRequest(String request);
 }

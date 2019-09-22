@@ -1,5 +1,12 @@
 package com.example.speakez.DataAccessLayer.Spotify;
 
+import com.example.speakez.DataAccessLayer.Spotify.RESTRequests.RequestSender;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @summary
  *  This class handles authenticating with the Spotify API. It allows the user to retrieve an active
@@ -7,8 +14,6 @@ package com.example.speakez.DataAccessLayer.Spotify;
  */
 public class Authenticator
 {
-    private final String base64EncodedCredentials =
-        "ZmMxZmM5YTdhMzg3NGRiMWFiZjM2MjU5Zjc5Y2M5NTg6YmZjY2E0YjUyZTMxNDQ2YTgyMzFlOTk0MDI4ZjUyZjU=";
     private String mAccessToken;
 
     /* The static components of this class' singleton implementation. */
@@ -37,11 +42,32 @@ public class Authenticator
      * @return
      *  An active Spotify access token.
      */
-    public String regenerateAccessToken()
+    public void regenerateAccessToken()
     {
-        // TODO: Make API call for access token.
+        Map<String, String> requestHeaderValues= new HashMap<>();
+        requestHeaderValues.put("Authorization", "Basic " + SpotifyConstants.BASE64_ENCODED_CREDENTIALS);
+        requestHeaderValues.put("Content-Type", "application/x-www-form-urlencoded");
+        String requestBody = "grant_type=client_credentials";
 
-        return mAccessToken;
+        RequestSender requestSender = new RequestSender(
+            "https://accounts.spotify.com/api/token",
+            "POST",
+            new HashMap<String, String>(),
+            requestHeaderValues,
+            requestBody);
+        try
+        {
+            requestSender.execute();
+            String requestResponseString = requestSender.waitForResponse();
+            int jsonObjectStartIndex = requestResponseString.indexOf('{');
+            requestResponseString = requestResponseString.substring(jsonObjectStartIndex);
+            JsonObject jsonObject = new JsonParser().parse(requestResponseString).getAsJsonObject();
+            mAccessToken = jsonObject.get("access_token").getAsString();
+        }
+        catch (Exception e)
+        {
+            // TODO: Report Spotify authentication not working.
+        }
     }
 
     /**

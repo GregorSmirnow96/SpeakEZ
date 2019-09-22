@@ -1,5 +1,7 @@
 package com.example.speakez.ComponentInterfaces;
 
+import com.example.speakez.Peer2PeerLayer.Peer2PeerConnection;
+
 /**
  * @summary
  *  This is the interface exposed by the module responsible for handling clients' bluetooth
@@ -9,11 +11,11 @@ public interface IClientBluetoothHub
 {
     /**
      * @summary
-     *  This method sets the device that playlist-update-requests will be sent to.
-     * @param deviceInfo
-     *  The information needed to connect to the upstream device.
+     *  This method sets the connection to the device that playlist-update-requests will be sent to.
+     * @param hostConnection
+     *  The connection between this device and the upstream device.
      */
-    void setUpstreamDevice(Object deviceInfo); /* Once the type is known, change the input type. */
+    void setUpstreamDeviceConnection(Peer2PeerConnection hostConnection);
 
     /**
      * @summary
